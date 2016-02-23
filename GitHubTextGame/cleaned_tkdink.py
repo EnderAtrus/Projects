@@ -11,16 +11,16 @@ import time
 key=";bln]E94{Lkc1-zY`myvTUV'(Z8jg6a7.dK<i/p%t>_ =#oq+MRCxS0HGPFI:BXDhN?!J&}e|u*[3,A@f$2sWQ5)rwO^"
 alphabet="abcdefghijklmnopqrstuvwxyz123456 7890ABCDEFGHIJKLMNOPQRSTUVWXYZ`!@#$%^&*()-_=+[{]}|;:',<.>/?"
 def gettxts(newfile):
-    if os.path.isfile('tempfs.txt') is False:
-        tfiles = open('tempfs.txt','w')
+    if os.path.isfile('EncrpytedS.txt') is False:
+        tfiles = open('EncryptedS.txt','w')
         tfiles.close()
-    if os.path.isfile('tempfa.txt') is False:
-        tfilea = open('tempfa.txt','w')
+    if os.path.isfile('EncryptedR.txt') is False:
+        tfilea = open('EncryptedR.txt','w')
         tfilea.close()
         
     rfile = open(newfile,'r')
-    tfiles =open('tempfs.txt','r+')
-    tfilea =open('tempfa.txt','r+')
+    tfiles =open('EncryptedS.txt','r+')
+    tfilea =open('EncryptedR.txt','r+')
     i=0
     
     for line in rfile:
@@ -120,21 +120,29 @@ class gamevar():
     def newgame(self):
         self.game()
         
-    def makeArrays(self):
-        self.al = []
-        self.sl = []
-        self.tfiles =open('tempfs.txt','r')
-        self.tfilea =open('tempfa.txt','r')
-        self.key=";bln]E94{Lkc1-zY`myvTUV'(Z8jg6a7.dK<i/p%t>_ =#oq+MRCxS0HGPFI:BXDhN?!J&}e|u*[3,A@f$2sWQ5)rwO^"
-        self.alphabet="abcdefghijklmnopqrstuvwxyz123456 7890ABCDEFGHIJKLMNOPQRSTUVWXYZ`!@#$%^&*()-_=+[{]}|;:',<.>/?"
+    def makeArrays(self):            
+        if os.path.exists('EncrpytedS.txt'):
+            self.window = Tk()
+            self.window.title('Error! - Please follow inital setup')
+            self.errorMsg = Label(self.window, text = '"Please import messages using the gettxts command in cleaned_tkdink"')
+            self.errorMsg.pack()
+            print("Please inport messages from a textfile using the gettxts command in cleaned_tkdink")
+            self.window.mainloop()
+        else:
+            self.al = []
+            self.sl = []
+            self.tfiles =open('EncryptedS.txt','r')
+            self.tfilea =open('EncryptedR.txt','r')
+            self.key=";bln]E94{Lkc1-zY`myvTUV'(Z8jg6a7.dK<i/p%t>_ =#oq+MRCxS0HGPFI:BXDhN?!J&}e|u*[3,A@f$2sWQ5)rwO^"
+            self.alphabet="abcdefghijklmnopqrstuvwxyz123456 7890ABCDEFGHIJKLMNOPQRSTUVWXYZ`!@#$%^&*()-_=+[{]}|;:',<.>/?"
                      
-        for line in self.tfiles:
-            self.sl.append(SimpleEncryption.decryptMsg(line,self.key,self.alphabet))
-        for line in self.tfilea:
-            self.al.append(SimpleEncryption.decryptMsg(line,self.key,self.alphabet))
+            for line in self.tfiles:
+                self.sl.append(SimpleEncryption.decryptMsg(line,self.key,self.alphabet))
+            for line in self.tfilea:
+                self.al.append(SimpleEncryption.decryptMsg(line,self.key,self.alphabet))
       
-        self.tfiles.close()
-        self.tfilea.close()
+            self.tfiles.close()
+            self.tfilea.close()
 
 #-------------------------------------------------------------------
 #Main

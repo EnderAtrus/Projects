@@ -19,13 +19,14 @@ class window:
         self.e1.pack()
         
         self.b1 = Button(self.master, text='Quit', command=self.master.quit)
+        self.e1.bind("<Escape>", lambda e:self.master.quit())
+        
         self.b2 = Button(self.master, text='Enter', command=self.login)
         self.b1.pack(side='bottom')
         self.b2.pack(side='top')
 
         self.master.mainloop()
     def slowLogin(self):
-        self.l1['text'] = 'Loading...'
         if self.auth != True:
             self.login()
         
@@ -53,9 +54,11 @@ class window:
             self.lmsg3.pack(expand=0)
             self.lmsg4.pack(expand=0)
 
+            self.e1.bind("<s>", lambda e:self.guessSeth())
             self.b2 = Button(self.master, text ='Seth?', command=self.guessSeth)
             self.b2.pack(side='bottom')
-            
+
+            self.e1.bind("<a>", lambda e:self.guessAlysala())
             self.b3 = Button(self.master, text='Alysala?',command=self.guessAlysala)
             self.b3.pack(side='bottom')
 
